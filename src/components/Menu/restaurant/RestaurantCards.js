@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-const Cards = ({ data }) => {
+const RestaurantCards = ({ data }) => {
     // console.log(data);
     return (
         <>
@@ -15,7 +15,7 @@ const Cards = ({ data }) => {
                                         <h4 className='mt-2'>
                                             {element.rname}
                                         </h4>
-                                        <span>{element.rating}&nbsp;★</span>
+                                        <sp-an>{element.rating}&nbsp;★</sp-an>
                                     </div>
                                     <div className='lower_data d-flex justify-content-between'>
                                         <h5>{element.address}</h5>
@@ -40,4 +40,4 @@ const Cards = ({ data }) => {
     )
 }
 
-export default Cards
+export default RestaurantCards

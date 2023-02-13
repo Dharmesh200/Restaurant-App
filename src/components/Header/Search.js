@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import FoodData from '../Menu/FoodData'
-import './style.css'
+import RestaurantData from '../Menu/restaurant/RestaurantData'
+import '../style.css'
 import Form from 'react-bootstrap/Form'
 import RestLogo from '../images/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
-import Cards from '../Menu/Card'
+import RestaurantCards from '../Menu/restaurant/RestaurantCards'
 
 
 const Search = () => {
-    const [foodData, setFoodData] = useState(FoodData)
-    // console.log(foodData);
+    const [RestData, setRestaurantData] = useState(RestaurantData)
+    // console.log(RestaurantData);
 
     const [copyData, setCopyData] = useState([]);
 
+    const changeData = (e) => {
+        let getChangeData = e.toLowerCase()
+        if (getChangeData === "") {
+            setCopyData(RestData)
+        } else {
+            let storeData = copyData.filter((ele, k) => {
+                return ele.rname.toLowerCase().match(getChangeData)
+            })
+            setCopyData(storeData)
+        }
+    }
+
     useEffect(() => {
-        setCopyData(FoodData)
+        setTimeout(() => {
+            setCopyData(RestaurantData)
+        }, 1000);
+
     }, [])
 
     return (
@@ -40,7 +55,10 @@ const Search = () => {
             </div >
             <Form className='d-flex justify-content-center align-items-center mt-3'>
                 <Form.Group className="mx-2 col-lg-4" controlId="formBasicEmail">
-                    <Form.Control type="text" placeholder="Search Restaurant" />
+                    <Form.Control
+                        type="text"
+                        onChange={(e) => changeData(e.target.value)}
+                        placeholder="Search Restaurant" />
                 </Form.Group>
                 <button
                     className='btn text-light col-lg-1'
@@ -51,7 +69,7 @@ const Search = () => {
                     Restaurants Available Near to You
                 </h2>
                 <div className='row mt-2 d-flex justify-content-center align-items-center'>
-                    {copyData && copyData.length ? <Cards data={foodData} /> : ""}
+                    {copyData && copyData.length ? <RestaurantCards data={copyData} /> : "Loading..."}
                 </div>
 
             </section>
