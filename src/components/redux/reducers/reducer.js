@@ -53,7 +53,7 @@ export const cartreducer = (state = INIT_STATE, action) => {
                     carts: data
                 }
             }
-
+            break
         default: return state
     }
 }

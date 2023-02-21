@@ -1,4 +1,4 @@
-const FoodData = [
+export const foodData = [
     {
         id: 1,
         rname: "Massala Theoryy",
@@ -108,5 +108,3 @@ const FoodData = [
         qnty: 0
     },
 ];
-
-export default FoodData;

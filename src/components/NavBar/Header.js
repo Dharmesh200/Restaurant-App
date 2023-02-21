@@ -4,12 +4,14 @@ import Container from 'react-bootstrap/Container'
 import Badge from '@mui/material/Badge';
 import Nav from 'react-bootstrap/Nav'
 import Menu from '@mui/material/Menu';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/esm/Table';
 import { DLT } from '../redux/actions/action';
 
 const Header = () => {
+
+    const navigate = useNavigate()
 
     const [price, setPrice] = useState(0);
     // console.log(price);
@@ -20,6 +22,9 @@ const Header = () => {
     const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const restId = sessionStorage.getItem('restId')
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -50,7 +55,7 @@ const Header = () => {
         <>
             <Navbar bg="dark" variant="dark" style={{ height: "60px" }}>
                 <Container>
-                    <NavLink to="/" className="text-decoration-none text-light mx-3">Add to Cart</NavLink>
+                    <div onClick={() => navigate(`restaurant/${restId}`)} className="text-decoration-none text-light mx-3">Menu</div>
                     <Nav className="me-auto">
                         <NavLink to="/" className="text-decoration-none text-light">Home</NavLink>
                     </Nav>

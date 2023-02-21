@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import RestaurantData from '../Menu/restaurant/RestaurantData'
+import { restaurantData } from '../Data/RestaurantData'
 import '../style.css'
 import Form from 'react-bootstrap/Form'
-import RestLogo from '../images/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
-import RestaurantCards from '../Menu/restaurant/RestaurantCards'
-
+import RestLogo from '../Data/images/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
+import RestaurantCard from '../Home/RestaurantCard'
 
 const Search = () => {
-    const [RestData, setRestaurantData] = useState(RestaurantData)
-    // console.log(RestaurantData);
-
+    const [RestData, setRestaurantData] = useState(restaurantData)
+    // console.log(restaurantData);
     const [copyData, setCopyData] = useState([]);
 
     const changeData = (e) => {
@@ -26,7 +24,7 @@ const Search = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            setCopyData(RestaurantData)
+            setCopyData(restaurantData)
         }, 1000);
 
     }, [])
@@ -34,6 +32,7 @@ const Search = () => {
     return (
         <>
             <div className="container d-flex justify-content-between align-items-center">
+
                 <img
                     className='mt-3'
                     src={RestLogo}
@@ -69,7 +68,7 @@ const Search = () => {
                     Restaurants Available Near to You
                 </h2>
                 <div className='row mt-2 d-flex justify-content-center align-items-center'>
-                    {copyData && copyData.length ? <RestaurantCards data={copyData} /> : "Loading..."}
+                    {copyData && copyData.length ? <RestaurantCard data={copyData} /> : "Loading..."}
                 </div>
 
             </section>

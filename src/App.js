@@ -1,19 +1,35 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Search from './components/Header/Search';
-import Header from './components/Header/Header';
+import Search from './components/NavBar/Search';
+import Header from './components/NavBar/Header';
 import CardsDetails from './components/Cart/CardDetails';
-import FoodCards from './components/Menu/food/FoodCards';
-import { Routes, Route } from 'react-router-dom';
+import MenuCard from './components/Home/MenuCard';
+import { Routes, Route, Outlet } from 'react-router-dom';
+
+function DashBoard() {
+  const isHomePage = window.location.pathname
+  console.log(isHomePage == '/');
+
+  return (
+    <div>
+      {isHomePage == '/' &&
+        <Header />}
+      <Outlet />
+    </div>
+  )
+}
 
 function App() {
+
   return (
     <div className="App">
-      <Search />
-      <Header />
+
       <Routes>
-        <Route path='/' element={<FoodCards />} />
-        <Route path='/cart/:id' element={<CardsDetails />} />
+        <Route path='/' element={<DashBoard />} >
+          <Route path="/" element={<Search />} />
+          <Route path='restaurant/:restId' element={<MenuCard />} />
+          <Route path='cart/:id' element={<CardsDetails />} />
+        </Route>
       </Routes>
     </div >
   );
