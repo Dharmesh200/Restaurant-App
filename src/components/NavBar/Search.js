@@ -8,7 +8,7 @@ import RestaurantCard from '../Home/RestaurantCard'
 const Search = () => {
     const [RestData, setRestaurantData] = useState(restaurantData)
     // console.log(restaurantData);
-    const [copyData, setCopyData] = useState([]);
+    const [copyData, setCopyData] = useState([])
 
     const changeData = (e) => {
         let getChangeData = e.toLowerCase()
@@ -31,6 +31,7 @@ const Search = () => {
 
     return (
         <>
+
             <div className="container d-flex justify-content-between align-items-center">
 
                 <img

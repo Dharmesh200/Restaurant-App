@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { ADD } from '../redux/actions/action';
 import { useParams } from 'react-router-dom';
 import { restaurantData } from '../Data/RestaurantData';
+import Header from '../NavBar/Header';
 
 const MenuCard = () => {
     const { restId } = useParams();
@@ -33,34 +34,37 @@ const MenuCard = () => {
     }
 
     return (
-        <div className='container mt-3'>
-            <div className="row d-flex justify-content-center align-items-center">
-                {
-                    filterMenuList?.[0]?.foodData?.map((element) => {
-                        return (
+        <>
+            <Header></Header>
+            <div className='container mt-3'>
+                <div className="row d-flex justify-content-center align-items-center">
+                    {
+                        filterMenuList?.[0]?.foodData?.map((element) => {
+                            return (
 
-                            <Card key={element.id} style={{ width: '22rem', border: "none" }} className="mx-2 mt-4 card_style">
-                                <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
-                                <Card.Body>
-                                    <Card.Title>{element.rname}</Card.Title>
-                                    <Card.Text>
-                                        Price : ₹ {element.price}
-                                    </Card.Text>
-                                    <div className="button_div d-flex justify-content-center">
-                                        <Button variant="primary"
-                                            onClick={() => send(element)}
-                                            className='col-lg-12'>Add to Cart</Button>
-                                    </div>
+                                <Card key={element.id} style={{ width: '22rem', border: "none" }} className="mx-2 mt-4 card_style">
+                                    <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
+                                    <Card.Body>
+                                        <Card.Title>{element.rname}</Card.Title>
+                                        <Card.Text>
+                                            Price : ₹ {element.price}
+                                        </Card.Text>
+                                        <div className="button_div d-flex justify-content-center">
+                                            <Button variant="primary"
+                                                onClick={() => send(element)}
+                                                className='col-lg-12'>Add to Cart</Button>
+                                        </div>
 
-                                </Card.Body>
-                            </Card>
+                                    </Card.Body>
+                                </Card>
 
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
 
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -12,8 +12,8 @@ function DashBoard() {
 
   return (
     <div>
-      {isHomePage == '/' &&
-        <Header />}
+      {/* {isHomePage == '/' &&
+        <Header />} */}
       <Outlet />
     </div>
   )

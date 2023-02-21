@@ -26,6 +26,7 @@ const Header = () => {
     const restId = sessionStorage.getItem('restId')
 
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -53,9 +54,9 @@ const Header = () => {
 
     return (
         <>
-            <Navbar bg="dark" variant="dark" style={{ height: "60px" }}>
+            <Navbar variant="dark" style={{ backgroundColor: "blue", height: "60px" }}>
                 <Container>
-                    <div onClick={() => navigate(`restaurant/${restId}`)} className="text-decoration-none text-light mx-3">Menu</div>
+                    <div onClick={() => navigate(`restaurant/${restId}`)} className="text-decoration-none text-light mx-3" style={{ cursor: "pointer" }}>Menu</div>
                     <Nav className="me-auto">
                         <NavLink to="/" className="text-decoration-none text-light">Home</NavLink>
                     </Nav>

@@ -3,43 +3,44 @@ import Table from 'react-bootstrap/Table'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { DLT, ADD, REMOVE } from '../redux/actions/action'
+import Header from '../NavBar/Header'
 
 
 const CardsDetails = () => {
 
-    const [data, setData] = useState([]);
-    // console.log(data);
+    const [data, setData] = useState([])
+    // console.log(data)
 
-    const { id } = useParams();
-    // console.log(id);
+    const { id } = useParams()
+    // console.log(id)
 
-    const history = useNavigate();
+    const history = useNavigate()
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
 
-    const getdata = useSelector((state) => state.cartreducer.carts);
-    // console.log(getdata);
+    const getdata = useSelector((state) => state.cartreducer.carts)
+    // console.log(getdata)
 
 
     const compare = () => {
         let comparedata = getdata.filter((e) => {
             return e.id == id
-        });
-        setData(comparedata);
+        })
+        setData(comparedata)
     }
 
     // add data
 
 
     const send = (e) => {
-        // console.log(e);
-        dispatch(ADD(e));
+        // console.log(e)
+        dispatch(ADD(e))
     }
 
     const dlt = (id) => {
-        dispatch(DLT(id));
-        history("/");
+        dispatch(DLT(id))
+        history("/")
     }
 
     // remove one
@@ -49,11 +50,12 @@ const CardsDetails = () => {
 
 
     useEffect(() => {
-        compare();
+        compare()
     }, [id])
 
     return (
         <>
+            <Header></Header>
             <div className="container mt-2">
                 <h2 className='text-center'>Iteams Details Page
                 </h2>
