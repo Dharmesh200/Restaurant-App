@@ -1,33 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { restaurantData } from '../Data/RestaurantData'
-import '../style.css'
 import Form from 'react-bootstrap/Form'
+import getHttp from '../Data/RestaurantData'
+import '../style.css'
 import RestLogo from '../Data/images/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
 import RestaurantCard from '../Home/RestaurantCard'
 
 const Search = () => {
-    const [RestData, setRestaurantData] = useState(restaurantData)
-    // console.log(restaurantData);
-    const [copyData, setCopyData] = useState([])
+    const [restaurantList, setRestaurantList] = useState([])
+    const [restaurantFilterList, setRestaurantFilterList] = useState([])
 
-    const changeData = (e) => {
-        let getChangeData = e.toLowerCase()
-        if (getChangeData === "") {
-            setCopyData(RestData)
-        } else {
-            let storeData = copyData.filter((ele, k) => {
-                return ele.rname.toLowerCase().match(getChangeData)
-            })
-            setCopyData(storeData)
+    const getApiData = async () => {
+        try {
+            const res = await getHttp.get("/data")
+            console.log(res);
+            setRestaurantFilterList(res.data)
+            setRestaurantList(res.data)
+        } catch (error) {
+            console.log(error);
         }
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setCopyData(restaurantData)
-        }, 1000);
+    // console.log(restaurantData);
 
+    useEffect(() => {
+        getApiData();
     }, [])
+
+    const handleFilterRestaurant = (e) => {
+        let restaurantName = e.target.value.toLowerCase()
+        if (restaurantName === "") {
+            setRestaurantFilterList(restaurantList)
+        } else {
+            let storeData = restaurantFilterList.filter((ele, k) => {
+                return ele.rname.toLowerCase().match(restaurantName)
+            })
+            setRestaurantFilterList(storeData)
+        }
+    }
 
     return (
         <>
@@ -57,19 +66,19 @@ const Search = () => {
                 <Form.Group className="mx-2 col-lg-4" controlId="formBasicEmail">
                     <Form.Control
                         type="text"
-                        onChange={(e) => changeData(e.target.value)}
+                        onChange={handleFilterRestaurant}
                         placeholder="Search Restaurant" />
                 </Form.Group>
                 <button
                     className='btn text-light col-lg-1'
-                    style={{ background: '#ed4c67' }}>Check</button>
+                    style={{ background: '#ed4c67' }}>Search</button>
             </Form>
             <section className='item_section mt-4 container'>
                 <h2 className='px-4' style={{ fontWeight: 400 }}>
                     Restaurants Available Near to You
                 </h2>
                 <div className='row mt-2 d-flex justify-content-center align-items-center'>
-                    {copyData && copyData.length ? <RestaurantCard data={copyData} /> : "Loading..."}
+                    {restaurantFilterList && restaurantFilterList.length ? <RestaurantCard data={restaurantFilterList} /> : <RestaurantCard data={restaurantList} />}
                 </div>
 
             </section>

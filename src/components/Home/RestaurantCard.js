@@ -3,15 +3,12 @@ import Card from 'react-bootstrap/Card'
 import { useNavigate } from 'react-router-dom'
 const RestaurantCard = ({ data }) => {
     let navigate = useNavigate()
-    // console.log(data);
     return (
         <>
             {
                 data.map((element) => {
                     return (
-
                         <Card key={element.id} onClick={() => navigate(`/restaurant/${element.id}`)} style={{ width: '22rem', border: "none" }} className='hove mb-4'>
-
                             <Card.Img variant="top" className='cd' src={element.imgdata} />
                             <div className='card_body'>
                                 <div className='upper_data d-flex justify-content-between align-items-center'>
@@ -34,9 +31,7 @@ const RestaurantCard = ({ data }) => {
                                     </div>
                                 </div>
                             </div>
-
                         </Card >
-
                     )
                 })
             }

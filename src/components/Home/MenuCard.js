@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import axios from '../Data/RestaurantData'
 import "../style.css";
-import { useDispatch } from 'react-redux';
-import { ADD } from '../redux/actions/action';
-import { useParams } from 'react-router-dom';
-import { restaurantData } from '../Data/RestaurantData';
-import Header from '../NavBar/Header';
+import { ADD } from '../redux/actions/action'
+import Header from '../NavBar/Header'
 
 const MenuCard = () => {
+    const [menuData, setMenuData] = useState([])
+    const [isError, setIsError] = useState("")
     const { restId } = useParams();
-    // console.log(restId);
+    const dispatch = useDispatch();
 
     sessionStorage.setItem("restId", restId)
 
-    const filterMenuList = restaurantData.filter((val) => {
-        return val.id == restId
-    })
+    const getApiData = async () => {
+        try {
+            const res = await axios.get(`/restaurant/${restId}`)
+            setMenuData(res.data)
+        } catch (error) {
+            setIsError(error.message);
+        }
+    }
 
-    const [data, setData] = useState([]);
-    // console.log(data);
-
-    // useEffect(() => {
-    //     setData(filterMenuList)
-    // }, [data])
-
-    const dispatch = useDispatch();
-
+    useEffect(() => {
+        getApiData()
+    }, [])
 
     const send = (e) => {
-        // console.log(e);
         dispatch(ADD(e));
     }
 
@@ -38,10 +38,10 @@ const MenuCard = () => {
             <Header></Header>
             <div className='container mt-3'>
                 <div className="row d-flex justify-content-center align-items-center">
+                    {isError !== "" && <h2>{isError}</h2>}
                     {
-                        filterMenuList?.[0]?.foodData?.map((element) => {
+                        menuData?.[0]?.foodData?.map((element) => {
                             return (
-
                                 <Card key={element.id} style={{ width: '22rem', border: "none" }} className="mx-2 mt-4 card_style">
                                     <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
                                     <Card.Body>
@@ -54,14 +54,11 @@ const MenuCard = () => {
                                                 onClick={() => send(element)}
                                                 className='col-lg-12'>Add to Cart</Button>
                                         </div>
-
                                     </Card.Body>
                                 </Card>
-
                             )
                         })
                     }
-
                 </div>
             </div>
         </>
