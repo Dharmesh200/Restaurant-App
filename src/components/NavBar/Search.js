@@ -11,12 +11,12 @@ const Search = () => {
 
     const getApiData = async () => {
         try {
-            const res = await getHttp.get("/data")
+            const res = await getHttp.get("/")
             console.log(res);
             setRestaurantFilterList(res.data)
             setRestaurantList(res.data)
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     }
 

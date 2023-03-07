@@ -2,18 +2,31 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
-const apiData = require('./data.json');
+const { DBConnection } = require("./db");
+let restaurantData = require("./Shcema");
 
+app.use(express.json());
 app.use(cors());
 
-app.get("/data", (req, res) => {
-    res.send(apiData)
+let startMongoDb = async () => {
+    DBConnection()
+}
+
+startMongoDb();
+
+
+app.get("/", async (req, res) => {
+    let data = await restaurantData.find({})
+    res.json(data);
 });
 
-app.get("/restaurant/:id", (req, res) => {
-    let restaurantData = apiData.filter(val => val.id == req.params.id)
-    res.send(restaurantData)
+app.get("/:id", async (req, res) => {
+    let id = req.params.id
+    let data = await restaurantData.findOne({ id });
+    res.json(data);
 })
+
+
 
 app.listen(port, (err) => {
     if (err) throw err;
