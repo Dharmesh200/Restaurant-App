@@ -42,13 +42,12 @@ const MenuCard = () => {
             setMenuFilterList(menuData)
         } else {
             let storeData = menuFilterList.filter((ele, k) => {
-                return ele.rname.toLowerCase().match(menuItem)
+                return ele.rmenu.toLowerCase().match(menuItem)
             })
             setMenuFilterList(storeData)
         }
 
     }
-
     return (
         <>
             <Header></Header>
@@ -73,7 +72,7 @@ const MenuCard = () => {
                                 <Card key={element.id} style={{ width: '22rem', border: "none" }} className="mx-2 mt-4 card_style">
                                     <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
                                     <Card.Body>
-                                        <Card.Title>{element.rname}</Card.Title>
+                                        <Card.Title>{element.rmenu}</Card.Title>
                                         <Card.Text>
                                             Price : ₹ {element.price}
                                         </Card.Text>
