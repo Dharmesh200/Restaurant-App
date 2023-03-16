@@ -26,8 +26,6 @@ app.get("/:id", async (req, res) => {
     res.json(data);
 })
 
-
-
 app.listen(port, (err) => {
     if (err) throw err;
     else (console.log(`server is running on port:${port}`));
