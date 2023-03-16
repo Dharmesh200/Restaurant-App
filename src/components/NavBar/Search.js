@@ -1,37 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Form from 'react-bootstrap/Form'
-import getHttp from '../Data/RestaurantData'
+import { getRestaurantFetch } from '../redux/actions/ApiFetchAction'
 import '../style.css'
-import RestLogo from '../Data/images/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
+import RestLogo from '../../Assets/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
 import RestaurantCard from '../Home/RestaurantCard'
 
 const Search = () => {
-    const [restaurantList, setRestaurantList] = useState([])
     const [restaurantFilterList, setRestaurantFilterList] = useState([])
-
-    const getApiData = async () => {
-        try {
-            const res = await getHttp.get("/")
-            console.log(res);
-            setRestaurantFilterList(res.data)
-            setRestaurantList(res.data)
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
-
-    // console.log(restaurantData);
+    const dispatch = useDispatch();
+    const restaurantState = useSelector(state => state.restaurantReducer.restaurant)
 
     useEffect(() => {
-        getApiData();
+        dispatch(getRestaurantFetch())
     }, [])
 
     const handleFilterRestaurant = (e) => {
         let restaurantName = e.target.value.toLowerCase()
         if (restaurantName === "") {
-            setRestaurantFilterList(restaurantList)
+            setRestaurantFilterList(restaurantState)
         } else {
-            let storeData = restaurantFilterList.filter((ele, k) => {
+            let storeData = restaurantState.filter((ele, k) => {
                 return ele.rname.toLowerCase().match(restaurantName)
             })
             setRestaurantFilterList(storeData)
@@ -40,9 +29,7 @@ const Search = () => {
 
     return (
         <>
-
             <div className="container d-flex justify-content-between align-items-center">
-
                 <img
                     className='mt-3'
                     src={RestLogo}
@@ -53,7 +40,6 @@ const Search = () => {
                         cursor: 'pointer'
                     }}
                     alt='Loading....' />
-
                 <h2 className='mt-3'
                     style={{
                         color: "#1b1464",
@@ -78,7 +64,7 @@ const Search = () => {
                     Restaurants Available Near to You
                 </h2>
                 <div className='row mt-2 d-flex justify-content-center align-items-center'>
-                    {restaurantFilterList && restaurantFilterList.length ? <RestaurantCard data={restaurantFilterList} /> : <RestaurantCard data={restaurantList} />}
+                    {restaurantFilterList && restaurantFilterList.length ? <RestaurantCard data={restaurantFilterList} /> : <RestaurantCard data={restaurantState} />}
                 </div>
 
             </section>

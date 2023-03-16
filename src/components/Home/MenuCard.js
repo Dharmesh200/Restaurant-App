@@ -1,35 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import axios from '../Data/RestaurantData'
-import "../style.css";
-import { ADD } from '../redux/actions/action'
+import { getMenuCardFetch } from '../redux/actions/ApiFetchAction'
+import { ADD } from '../redux/actions/CartAction'
 import Header from '../NavBar/Header'
+import "../style.css";
+
+const DisplayCard = ({ element, send }) => {
+    return (
+        <Card key={element.id} style={{ width: '22rem', border: "none" }} className="mx-2 mt-4 card_style">
+            <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
+            <Card.Body>
+                <Card.Title>{element.rmenu}</Card.Title>
+                <Card.Text>
+                    Price : ₹ {element.price}
+                </Card.Text>
+                <div className="button_div d-flex justify-content-center">
+                    <Button variant="primary"
+                        onClick={() => send(element)}
+                        className='col-lg-12'>Add to Cart</Button>
+                </div>
+            </Card.Body>
+        </Card>
+    )
+}
 
 const MenuCard = () => {
-    const [menuData, setMenuData] = useState([])
     const [menuFilterList, setMenuFilterList] = useState([])
-    const [isError, setIsError] = useState("")
     const { restId } = useParams();
     const dispatch = useDispatch();
+    const menuCardState = useSelector(state => state.menuCardReducer.menuCard)
+    console.log("menuCard", menuCardState);
 
     sessionStorage.setItem("restId", restId)
 
-    const getApiData = async () => {
-        try {
-            const res = await axios.get(`/${restId}`)
-            setMenuFilterList(res.data.foodData)
-            setMenuData(res.data.foodData)
-        } catch (error) {
-            setIsError(error.message);
-        }
-    }
-
     useEffect(() => {
-        getApiData()
+        dispatch(getMenuCardFetch(restId))
     }, [])
 
     const send = (e) => {
@@ -39,9 +48,9 @@ const MenuCard = () => {
     const handleFilterMenu = (element) => {
         let menuItem = element.target.value.toLowerCase()
         if (menuItem === "") {
-            setMenuFilterList(menuData)
+            setMenuFilterList(menuCardState)
         } else {
-            let storeData = menuFilterList.filter((ele, k) => {
+            let storeData = menuCardState.filter((ele, k) => {
                 return ele.rmenu.toLowerCase().match(menuItem)
             })
             setMenuFilterList(storeData)
@@ -65,26 +74,12 @@ const MenuCard = () => {
 
             <div className='container mt-3'>
                 <div className="row d-flex justify-content-center align-items-center">
-                    {isError !== "" && <h2>{isError}</h2>}
                     {
                         menuFilterList && menuFilterList.length ? menuFilterList.map((element) => {
-                            return (
-                                <Card key={element.id} style={{ width: '22rem', border: "none" }} className="mx-2 mt-4 card_style">
-                                    <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
-                                    <Card.Body>
-                                        <Card.Title>{element.rmenu}</Card.Title>
-                                        <Card.Text>
-                                            Price : ₹ {element.price}
-                                        </Card.Text>
-                                        <div className="button_div d-flex justify-content-center">
-                                            <Button variant="primary"
-                                                onClick={() => send(element)}
-                                                className='col-lg-12'>Add to Cart</Button>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            )
-                        }) : menuFilterList
+                            return <DisplayCard element={element} send={send} />
+                        }) : menuCardState.map((element) => {
+                            return <DisplayCard element={element} send={send} />
+                        })
                     }
 
                 </div>

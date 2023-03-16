@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/esm/Table';
-import { DLT } from '../redux/actions/action';
+import { DLT } from '../redux/actions/CartAction';
 
 const Header = () => {
     const [price, setPrice] = useState(0);

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { DLT, ADD, REMOVE } from '../redux/actions/action'
+import { DLT, ADD, REMOVE } from '../redux/actions/CartAction'
 import Header from '../NavBar/Header'
 
 const CardsDetails = () => {

@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
-const { DBConnection } = require("./db");
-let restaurantData = require("./Shcema");
+const { DBConnection } = require("./config/db");
+let restaurantData = require("./model/Shcema");
 
 app.use(express.json());
 app.use(cors());
