@@ -2,10 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { DLT, ADD, REMOVE } from '../redux/actions/CartAction'
-import Header from '../NavBar/Header'
+import { DLT, ADD, REMOVE } from '../../redux/actions/CartAction'
 
-const CardsDetails = () => {
+const SingleItemDetail = () => {
     const [data, setData] = useState([])
     const { id } = useParams()
     const history = useNavigate()
@@ -42,7 +41,6 @@ const CardsDetails = () => {
 
     return (
         <>
-            <Header></Header>
             <div className="container mt-2">
                 <h2 className='text-center'>Iteams Details Page
                 </h2>
@@ -89,4 +87,4 @@ const CardsDetails = () => {
     )
 }
 
-export default CardsDetails
+export default SingleItemDetail

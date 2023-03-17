@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import { useNavigate } from 'react-router-dom'
-const RestaurantCard = ({ data }) => {
+const RestaurantCardComponent = ({ data }) => {
     let navigate = useNavigate()
     return (
         <>
@@ -39,4 +39,4 @@ const RestaurantCard = ({ data }) => {
     )
 }
 
-export default RestaurantCard
+export default RestaurantCardComponent

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Form from 'react-bootstrap/Form'
-import { getRestaurantFetch } from '../redux/actions/ApiFetchAction'
-import '../style.css'
+import { getRestaurantFetch } from '../../redux/actions/ApiFetchAction'
 import RestLogo from '../../Assets/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
-import RestaurantCard from '../Home/RestaurantCard'
+import RestaurantCardComponent from '../RestaurantContainer/RestaurantCardComponent'
+import '../../components/style.css'
 
-const Search = () => {
+const RestaurantSearchComponent = () => {
     const [restaurantFilterList, setRestaurantFilterList] = useState([])
     const dispatch = useDispatch();
     const restaurantState = useSelector(state => state.restaurantReducer.restaurant)
@@ -15,7 +15,7 @@ const Search = () => {
         dispatch(getRestaurantFetch())
     }, [])
 
-    const handleFilterRestaurant = (e) => {
+    const handleRestaurantFilter = (e) => {
         let restaurantName = e.target.value.toLowerCase()
         if (restaurantName === "") {
             setRestaurantFilterList(restaurantState)
@@ -52,7 +52,7 @@ const Search = () => {
                 <Form.Group className="mx-2 col-lg-4" controlId="formBasicEmail">
                     <Form.Control
                         type="text"
-                        onChange={handleFilterRestaurant}
+                        onChange={handleRestaurantFilter}
                         placeholder="Search Restaurant" />
                 </Form.Group>
                 <button
@@ -64,7 +64,7 @@ const Search = () => {
                     Restaurants Available Near to You
                 </h2>
                 <div className='row mt-2 d-flex justify-content-center align-items-center'>
-                    {restaurantFilterList && restaurantFilterList.length ? <RestaurantCard data={restaurantFilterList} /> : <RestaurantCard data={restaurantState} />}
+                    {restaurantFilterList && restaurantFilterList.length ? <RestaurantCardComponent data={restaurantFilterList} /> : <RestaurantCardComponent data={restaurantState} />}
                 </div>
 
             </section>
@@ -72,4 +72,4 @@ const Search = () => {
     )
 }
 
-export default Search
+export default RestaurantSearchComponent

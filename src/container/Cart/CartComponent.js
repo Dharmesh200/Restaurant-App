@@ -4,12 +4,12 @@ import Container from 'react-bootstrap/Container'
 import Badge from '@mui/material/Badge';
 import Nav from 'react-bootstrap/Nav'
 import Menu from '@mui/material/Menu';
+import Table from 'react-bootstrap/esm/Table';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Table from 'react-bootstrap/esm/Table';
-import { DLT } from '../redux/actions/CartAction';
+import { DLT } from '../../redux/actions/CartAction';
 
-const Header = () => {
+const CartComponent = () => {
     const [price, setPrice] = useState(0);
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate()
@@ -127,4 +127,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default CartComponent
