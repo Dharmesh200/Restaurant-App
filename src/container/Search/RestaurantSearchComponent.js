@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import { getRestaurantFetch } from '../../redux/actions/ApiFetchAction'
-import RestLogo from '../../Assets/png-clipart-graphics-restaurant-logo-restaurant-thumbnail.png'
 import RestaurantCardComponent from '../RestaurantContainer/RestaurantCardComponent'
+import Carousal from "../../components/Carousal/Carousal"
 import '../../components/style.css'
 
 const RestaurantSearchComponent = () => {
@@ -29,25 +29,8 @@ const RestaurantSearchComponent = () => {
 
     return (
         <>
-            <div className="container d-flex justify-content-between align-items-center">
-                <img
-                    className='mt-3'
-                    src={RestLogo}
-                    style={{
-                        width: '8rem',
-                        position: "relative",
-                        left: '2%',
-                        cursor: 'pointer'
-                    }}
-                    alt='Loading....' />
-                <h2 className='mt-3'
-                    style={{
-                        color: "#1b1464",
-                        cursor: "pointer"
-                    }}>
-                    Restaurant App
-                </h2>
-            </div >
+            <Carousal />
+
             <Form className='d-flex justify-content-center align-items-center mt-3'>
                 <Form.Group className="mx-2 col-lg-4" controlId="formBasicEmail">
                     <Form.Control

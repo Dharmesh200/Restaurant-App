@@ -1,5 +1,6 @@
 const INIT_STATE = {
-    carts: []
+    carts: [],
+    cartCount: 0
 };
 
 
@@ -10,10 +11,11 @@ export const cartReducer = (state = INIT_STATE, action) => {
             const IteamIndex = state.carts.findIndex((iteam) => iteam.id === action.payload.id);
 
             if (IteamIndex >= 0) {
-                state.carts[IteamIndex].qnty += 1
+                let count = state.carts[IteamIndex].qnty += 1
                 return {
                     ...state,
-                    carts: [...state.carts]
+                    carts: [...state.carts],
+                    cartCount: count
                 }
             } else {
                 const temp = { ...action.payload, qnty: 1 }

@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
 const MenuCardComponent = ({ data, send }) => {
+    const [page, setPage] = useState(1)
+    const selectPageHandler = (selectedPage) => {
+        if (selectedPage >= 1 && selectedPage <= data.length / 10 && selectedPage !== page) {
+            console.log("page", page);
+            setPage(selectedPage)
+        }
+    }
     return (
         <>
             {
@@ -25,6 +32,15 @@ const MenuCardComponent = ({ data, send }) => {
                     )
                 })
             }
+            {/* {
+                <div className="pagination">
+                    <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : "pagination__disable"}>◀ span</span>
+                    {[...Array(data.length / 9)].map((_, i) => {
+                        return <span key={i} className={page === i + 1 ? "pagination__selected" : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
+                    })}
+                    <span onClick={() => selectPageHandler(page + 1)} className={page < data.length / 9 ? "" : "pagination__disable"}>▶span</span>
+                </div>
+            } */}
         </>
     )
 }

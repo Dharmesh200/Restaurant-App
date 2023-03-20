@@ -19,14 +19,21 @@ export default function FooterCol({
 }) {
   return (
     <>
-      <h2 className="heading">{heading}</h2>
+      <h2 className="heading text-white">{heading}</h2>
       <ul>
         {links.map((item, index) => (
           <li key={index}>
             {item.type === "Link" ? (
-              <Link to={item.path}>{item.title}</Link>
+              <Link className="text-secondary" to={item.path}>
+                {item.title}
+              </Link>
             ) : (
-              <a href={item.path} target="_blank" rel="noreferrer">
+              <a
+                href={item.path}
+                className="text-secondary"
+                target="_blank"
+                rel="noreferrer"
+              >
                 {item.title}
               </a>
             )}

@@ -35,7 +35,7 @@ const CartComponent = () => {
 
     const totalPrice = () => {
         let price = 0;
-        getdata.map((ele, k) => {
+        getdata?.map((ele, k) => {
             price = ele.price * ele.qnty + price
         });
         setPrice(price);
@@ -49,11 +49,7 @@ const CartComponent = () => {
         <>
             <Navbar variant="dark" style={{ backgroundColor: "blue", height: "60px" }}>
                 <Container>
-                    <div onClick={() => navigate(`restaurant/${restId}`)} className="text-decoration-none text-light mx-3" style={{ cursor: "pointer" }}>Menu</div>
-                    <Nav className="me-auto">
-                        <NavLink to="/" className="text-decoration-none text-light">Home</NavLink>
-                    </Nav>
-                    <Badge badgeContent={getdata.length} color="primary"
+                    <Badge badgeContent={getdata.cartCount} color="primary"
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
                         aria-haspopup="true"
