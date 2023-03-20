@@ -8,7 +8,7 @@ const Carousal = () => {
             <Carousel fade>
                 <Carousel.Item>
                     <img
-                        className="d-block w-100"
+                        className="imgCarousal d-block w-100"
                         src="https://assets.architecturaldigest.in/photos/600848d1d0435267a8df963c/master/pass/Pune-Secret-Garden-Koregaon-Park-featured-image-1366x768.jpg"
                         alt="First slide"
                     />
@@ -19,7 +19,7 @@ const Carousal = () => {
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
-                        className="d-block w-100"
+                        className="imgCarousal d-block w-100"
                         src="https://im.whatshot.in/img/2020/Nov/10365-c-1606242424.jpg"
                         alt="Second slide"
                     />
@@ -31,7 +31,7 @@ const Carousal = () => {
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
-                        className="d-block w-100"
+                        className="imgCarousal d-block w-100"
                         src="https://femina.wwmindia.com/content/2022/may/pune-21652189318.jpg"
                         alt="Third slide"
                     />
